@@ -35,3 +35,10 @@
 * To view your statement:
 
 `> account.statement()`
+
+![screenshot](images/2018/12/screenshot.png)
+
+## My Approach
+
+* I have aimed for a separation of concerns in my classes, keeping each to a single responsibility. Transactions store information about a transaction, histories store transactions, transaction views render the display for one transaction, statement printers print a table of transactions, and the account is the interface for the user.
+* I test-drove the implementation of each feature.
