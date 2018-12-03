@@ -2,10 +2,14 @@ import Transaction from './transaction';
 
 export default class History {
   constructor() {
-    this.log = [];
+    this.transactions = [];
   }
 
-  record(credit, debit, total, date = new Date()) {
-    this.log.push(new Transaction(credit, debit, total, date));
+  record(credit, debit, total, date) {
+    this.transactions.push(new Transaction(credit, debit, total, date));
+  }
+
+  log() {
+    return this.transactions.sort((a, b) => b.date - a.date);
   }
 }
