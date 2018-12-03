@@ -58,4 +58,12 @@ describe('Bank', () => {
       expect(invalidWithdraw).toThrow('Insufficient funds');
     });
   });
+  describe('#statement', () => {
+    it('calls render method of printer', () => {
+      const spy = jest.spyOn(bank.printer, 'render');
+      bank.statement();
+      expect(spy).toHaveBeenCalled();
+      spy.mockRestore();
+    });
+  });
 });

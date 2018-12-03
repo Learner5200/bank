@@ -1,9 +1,11 @@
 import History from './history';
+import StatementPrinter from './statementPrinter';
 
 export default class Bank {
   constructor(balance = 0) {
     this.balance = balance;
     this.history = new History();
+    this.printer = new StatementPrinter(this.history);
   }
 
   deposit(value, date = new Date()) {
@@ -15,5 +17,9 @@ export default class Bank {
     if (this.balance - value < 0) throw new Error('Insufficient funds');
     this.balance -= value;
     this.history.record(0, value, this.balance, new Date(date));
+  }
+
+  statement() {
+    return this.printer.render();
   }
 }
