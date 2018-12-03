@@ -32,4 +32,30 @@ describe('Bank', () => {
       spy.mockRestore();
     });
   });
+  describe('#withdraw', () => {
+    beforeEach(() => {
+      bank = new Bank(1000);
+    });
+    it('decreases balance by amount', () => {
+      bank.withdraw(100);
+      expect(bank.balance).toBe(900);
+    });
+    it('records transaction in history and transforms date', () => {
+      const spy = jest.spyOn(bank.history, 'record');
+      bank.withdraw(100, '2018-12-25');
+      expect(spy).toHaveBeenCalledWith(0, 100, 900, new Date('2018-12-25'));
+      spy.mockRestore();
+    });
+    it('defaults to todays date if none given', () => {
+      const spy = jest.spyOn(bank.history, 'record');
+      MockDate.set(new Date('2018-1-1'));
+      bank.withdraw(100);
+      expect(spy).toHaveBeenCalledWith(0, 100, 900, new Date('2018-1-1'));
+      spy.mockRestore();
+    });
+    it('throws error if insufficient balance', () => {
+      const invalidWithdraw = (() => bank.withdraw(2000));
+      expect(invalidWithdraw).toThrow('Insufficient funds');
+    });
+  });
 });

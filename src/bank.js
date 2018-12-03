@@ -10,4 +10,10 @@ export default class Bank {
     this.balance += value;
     this.history.record(value, 0, this.balance, new Date(date));
   }
+
+  withdraw(value, date = new Date()) {
+    if (this.balance - value < 0) throw new Error('Insufficient funds');
+    this.balance -= value;
+    this.history.record(0, value, this.balance, new Date(date));
+  }
 }
