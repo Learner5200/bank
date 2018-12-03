@@ -1,4 +1,4 @@
-import Transaction from '../src/transaction'
+import Transaction from '../src/transaction';
 
 describe('Transaction', () => {
   describe('when initialized with positive value of 500', () => {
@@ -6,8 +6,8 @@ describe('Transaction', () => {
     test('has value of 500', () => {
       expect(transaction.value).toBe(500);
     });
-    test('has type of "deposit"', () => {
-      expect(transaction.type).toBe('deposit');
+    test('has type of "credit"', () => {
+      expect(transaction.type).toBe('credit');
     });
     test('defaults to current date', () => {
       expect(transaction.date.toDateString()).toBe(new Date().toDateString());
@@ -18,8 +18,8 @@ describe('Transaction', () => {
     test('has value of -500', () => {
       expect(transaction.value).toBe(-500);
     });
-    test('has type of "withdrawal"', () => {
-      expect(transaction.type).toBe('withdrawal');
+    test('has type of "debit"', () => {
+      expect(transaction.type).toBe('debit');
     });
   });
   describe('when initialized with value of 0', () => {
