@@ -5,7 +5,7 @@ export default class History {
     this.log = [];
   }
 
-  add(value, date = new Date()) {
-    this.log.push(new Transaction(value, date));
+  record(credit, debit, total, date = new Date()) {
+    this.log.push(new Transaction(credit, debit, total, date));
   }
 }
