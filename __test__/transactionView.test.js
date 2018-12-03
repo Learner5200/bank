@@ -1,7 +1,7 @@
 import TransactionView from '../src/transactionView';
 
 describe('TransactionView', () => {
-  it('renders single row of bank statement', () => {
+  it('renders single row of account statement', () => {
     const transaction = {
       credit: 500,
       debit: 0,

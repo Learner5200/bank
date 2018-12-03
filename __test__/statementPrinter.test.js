@@ -18,7 +18,7 @@ describe('StatementPrinter', () => {
   };
   const printer = new StatementPrinter(history);
   describe('#render', () => {
-    it('renders table of transactions newest first', () => {
+    it('prints table of transactions newest first', () => {
       expect(printer.render()).toBe('date || credit || debit || balance\n25/12/2018 || 0.00 || 1000.00 || 0.00\n24/12/2018 || 500.00 || 0.00 || 1000.00');
     });
   });
