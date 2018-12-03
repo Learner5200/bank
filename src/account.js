@@ -1,7 +1,7 @@
 import History from './history';
 import StatementPrinter from './statementPrinter';
 
-export default class Bank {
+export default class Account {
   constructor(balance = 0) {
     this.balance = balance;
     this.history = new History();
