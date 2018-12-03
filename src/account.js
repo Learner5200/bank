@@ -20,6 +20,6 @@ export default class Bank {
   }
 
   statement() {
-    return this.printer.render();
+    console.log(this.printer.render());
   }
 }

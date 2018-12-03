@@ -1,68 +1,68 @@
 import MockDate from 'mockdate';
-import Bank from '../src/bank';
+import Account from '../src/account';
 
-describe('Bank', () => {
-  let bank;
+describe('Account', () => {
+  let account;
   beforeEach(() => {
-    bank = new Bank();
+    account = new Account();
   });
   it('has balance of 0 by default', () => {
-    expect(bank.balance).toBe(0);
+    expect(account.balance).toBe(0);
   });
   it('can be initialized with balance', () => {
-    const bankTwo = new Bank(1000);
-    expect(bankTwo.balance).toBe(1000);
+    const accountTwo = new Account(1000);
+    expect(accountTwo.balance).toBe(1000);
   });
   describe('#deposit', () => {
     it('increases balance by amount', () => {
-      bank.deposit(100);
-      expect(bank.balance).toBe(100);
+      account.deposit(100);
+      expect(account.balance).toBe(100);
     });
     it('records transaction in history and transforms date', () => {
-      const spy = jest.spyOn(bank.history, 'record');
-      bank.deposit(100, '2018-12-25');
+      const spy = jest.spyOn(account.history, 'record');
+      account.deposit(100, '2018-12-25');
       expect(spy).toHaveBeenCalledWith(100, 0, 100, new Date('2018-12-25'));
       spy.mockRestore();
     });
     it('defaults to todays date if none given', () => {
-      const spy = jest.spyOn(bank.history, 'record');
+      const spy = jest.spyOn(account.history, 'record');
       MockDate.set(new Date('2018-1-1'));
-      bank.deposit(100);
+      account.deposit(100);
       expect(spy).toHaveBeenCalledWith(100, 0, 100, new Date('2018-1-1'));
       spy.mockRestore();
     });
   });
   describe('#withdraw', () => {
     beforeEach(() => {
-      bank = new Bank(1000);
+      account = new Account(1000);
     });
     it('decreases balance by amount', () => {
-      bank.withdraw(100);
-      expect(bank.balance).toBe(900);
+      account.withdraw(100);
+      expect(account.balance).toBe(900);
     });
     it('records transaction in history and transforms date', () => {
-      const spy = jest.spyOn(bank.history, 'record');
-      bank.withdraw(100, '2018-12-25');
+      const spy = jest.spyOn(account.history, 'record');
+      account.withdraw(100, '2018-12-25');
       expect(spy).toHaveBeenCalledWith(0, 100, 900, new Date('2018-12-25'));
       spy.mockRestore();
     });
     it('defaults to todays date if none given', () => {
-      const spy = jest.spyOn(bank.history, 'record');
+      const spy = jest.spyOn(account.history, 'record');
       MockDate.set(new Date('2018-1-1'));
-      bank.withdraw(100);
+      account.withdraw(100);
       expect(spy).toHaveBeenCalledWith(0, 100, 900, new Date('2018-1-1'));
       spy.mockRestore();
     });
     it('throws error if insufficient balance', () => {
-      const invalidWithdraw = (() => bank.withdraw(2000));
+      const invalidWithdraw = (() => account.withdraw(2000));
       expect(invalidWithdraw).toThrow('Insufficient funds');
     });
   });
   describe('#statement', () => {
-    it('calls render method of printer', () => {
-      const spy = jest.spyOn(bank.printer, 'render');
-      bank.statement();
-      expect(spy).toHaveBeenCalled();
+    it('prints output of render method of printer', () => {
+      const spy = jest.spyOn(console, 'log');
+      account.statement();
+      expect(spy).toHaveBeenCalledWith(account.printer.render());
       spy.mockRestore();
     });
   });
