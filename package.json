@@ -30,7 +30,8 @@
     "react-test-renderer": "^16.6.3"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "babel src -d lib"
   },
   "author": "",
   "license": "ISC"
