@@ -6,7 +6,7 @@ describe('StatementPrinter', () => {
   const transactionOne = { message: 'Render Transaction One' };
   const transactionTwo = { message: 'Render Transaction Two' };
   const history = { log: () => [transactionTwo, transactionOne] };
-  const printer = new StatementPrinter(history);
+  const printer = new StatementPrinter();
   describe('#render', () => {
     it('prints table of transactions', () => {
       expect(printer.render(history, TransactionViewMock)).toBe('date || credit || debit || balance\nRender Transaction Two\nRender Transaction One');
