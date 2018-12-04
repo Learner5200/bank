@@ -21,14 +21,24 @@ describe('Account', () => {
     it('records transaction in history and transforms date', () => {
       const spy = jest.spyOn(account.history, 'record');
       account.deposit(100, '2018-12-25');
-      expect(spy).toHaveBeenCalledWith(100, 0, 100, new Date('2018-12-25'));
+      expect(spy).toHaveBeenCalledWith({
+        credit: 100,
+        debit: 0,
+        balance: 100,
+        date: new Date('2018-12-25'),
+      });
       spy.mockRestore();
     });
     it('defaults to todays date if none given', () => {
       const spy = jest.spyOn(account.history, 'record');
       MockDate.set(new Date('2018-1-1'));
       account.deposit(100);
-      expect(spy).toHaveBeenCalledWith(100, 0, 100, new Date('2018-1-1'));
+      expect(spy).toHaveBeenCalledWith({
+        credit: 100,
+        debit: 0,
+        balance: 100,
+        date: new Date('2018-1-1'),
+      });
       spy.mockRestore();
     });
   });
@@ -43,14 +53,24 @@ describe('Account', () => {
     it('records transaction in history and transforms date', () => {
       const spy = jest.spyOn(account.history, 'record');
       account.withdraw(100, '2018-12-25');
-      expect(spy).toHaveBeenCalledWith(0, 100, 900, new Date('2018-12-25'));
+      expect(spy).toHaveBeenCalledWith({
+        credit: 0,
+        debit: 100,
+        balance: 900,
+        date: new Date('2018-12-25'),
+      });
       spy.mockRestore();
     });
     it('defaults to todays date if none given', () => {
       const spy = jest.spyOn(account.history, 'record');
       MockDate.set(new Date('2018-1-1'));
       account.withdraw(100);
-      expect(spy).toHaveBeenCalledWith(0, 100, 900, new Date('2018-1-1'));
+      expect(spy).toHaveBeenCalledWith({
+        credit: 0,
+        debit: 100,
+        balance: 900,
+        date: new Date('2018-1-1'),
+      });
       spy.mockRestore();
     });
     it('throws error if insufficient balance', () => {
