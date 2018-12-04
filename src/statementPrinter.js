@@ -1,15 +1,13 @@
-import TransactionView from './transactionView';
+import TransactionViewClass from './transactionView';
 
 export default class StatementPrinter {
-  constructor(history) {
-    this.history = history;
+  constructor() {
     this.header = 'date || credit || debit || balance';
   }
 
-  render() {
+  render(history, TransactionView = TransactionViewClass) {
     const rows = [this.header];
-    const log = this.history.log();
-    log.forEach((transaction) => {
+    history.log().forEach((transaction) => {
       const row = new TransactionView(transaction).render();
       rows.push(row);
     });

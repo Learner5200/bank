@@ -3,14 +3,28 @@ import Account from '../src/account';
 
 describe('Account', () => {
   let account;
+  class HistoryMock {
+    record() {}
+  }
+  class PrinterMock {
+    render() {}
+  }
+
   beforeEach(() => {
-    account = new Account();
+    account = new Account({
+      History: HistoryMock,
+      Printer: PrinterMock,
+    });
   });
   it('has balance of 0 by default', () => {
     expect(account.balance).toBe(0);
   });
   it('can be initialized with balance', () => {
-    const accountTwo = new Account(1000);
+    const accountTwo = new Account({
+      balance: 1000,
+      History: HistoryMock,
+      Printer: PrinterMock,
+    });
     expect(accountTwo.balance).toBe(1000);
   });
   describe('#deposit', () => {
@@ -44,7 +58,11 @@ describe('Account', () => {
   });
   describe('#withdraw', () => {
     beforeEach(() => {
-      account = new Account(1000);
+      account = new Account({
+        balance: 1000,
+        History: HistoryMock,
+        Printer: PrinterMock,
+      });
     });
     it('decreases balance by amount', () => {
       account.withdraw(100);
@@ -82,7 +100,7 @@ describe('Account', () => {
     it('prints output of render method of printer', () => {
       const spy = jest.spyOn(console, 'log');
       account.statement();
-      expect(spy).toHaveBeenCalledWith(account.printer.render());
+      expect(spy).toHaveBeenCalledWith(account.printer.render(account.history));
       spy.mockRestore();
     });
   });

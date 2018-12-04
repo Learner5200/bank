@@ -1,11 +1,15 @@
-import History from './history';
-import StatementPrinter from './statementPrinter';
+import HistoryClass from './history';
+import PrinterClass from './statementPrinter';
 
 export default class Account {
-  constructor(balance = 0) {
+  constructor({
+    balance = 0,
+    History = HistoryClass,
+    Printer = PrinterClass,
+  } = {}) {
     this.balance = balance;
     this.history = new History();
-    this.printer = new StatementPrinter(this.history);
+    this.printer = new Printer();
   }
 
   deposit(value, date = new Date()) {
@@ -30,6 +34,6 @@ export default class Account {
   }
 
   statement() {
-    console.log(this.printer.render());
+    console.log(this.printer.render(this.history));
   }
 }

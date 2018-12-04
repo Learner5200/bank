@@ -1,11 +1,11 @@
-import Transaction from './transaction';
+import TransactionClass from './transaction';
 
 export default class History {
   constructor() {
     this.transactions = [];
   }
 
-  record(parameters) {
+  record(parameters, Transaction = TransactionClass) {
     this.transactions.push(new Transaction(parameters));
   }
 
